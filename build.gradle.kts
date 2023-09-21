@@ -26,6 +26,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     implementation("org.mockito:mockito-core:$mockitoVersion")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    runtimeOnly("com.h2database:h2")
 
     testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
