@@ -27,6 +27,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     implementation("org.mockito:mockito-core:$mockitoVersion")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.1.4")
     runtimeOnly("com.h2database:h2")
 
     testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
