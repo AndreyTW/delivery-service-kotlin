@@ -1,10 +1,6 @@
 package ru.andreyTw.delivery.db;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "CLIENT_TYPE_DATA")
@@ -72,5 +68,16 @@ public class ClientTypeData {
 
     public void setLimitValue(Integer limitValue) {
         this.limitValue = limitValue;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientTypeEntity{" +
+                "id=" + id +
+                ", client_type_name=" + clientTypeName +
+                ", delivery_cost=" + deliveryCost +
+                ", discount_value=" + discountValue +
+                ", limit_value=" + limitValue +
+                "}";
     }
 }
