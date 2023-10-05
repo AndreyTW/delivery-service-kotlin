@@ -21,21 +21,6 @@ open class Application {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-
-//            val clientTypeDataService = ClientTypeDataService()
-
-//            val commonTypeData = ClientTypeData()
-//            commonTypeData.clientTypeName = "COMMON"
-//            commonTypeData.deliveryCost = 250
-//            commonTypeData.discountValue = 0
-//            commonTypeData.limitValue = 1000
-//            val commonTypeData = ClientTypeData().apply {
-//                clientTypeName = "COMMON";
-//                deliveryCost = 250;
-//                discountValue = 0;
-//                limitValue = 1000
-//            }
-
             SpringApplication.run(Application::class.java, *args)
         }
     }
