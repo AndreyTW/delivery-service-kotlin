@@ -3,11 +3,11 @@ package ru.andreyTw.delivery
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.andreyTw.delivery.db.ClientTypeData
-import ru.andreyTw.delivery.service.ClientTypeDataService
+import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
 @RestController
 class DataBaseController(
-    private val clientTypeDataService: ClientTypeDataService
+    private val clientTypeDataRepository: ClientTypeDataRepository
 ) {
 
     @GetMapping("/testHandle")
@@ -18,7 +18,7 @@ class DataBaseController(
         commonTypeData.discountValue = 0
         commonTypeData.limitValue = 1000
 
-        clientTypeDataService.save(commonTypeData)
+        clientTypeDataRepository.save(commonTypeData)
 
         return "Entity was saved to DB!"
     }
