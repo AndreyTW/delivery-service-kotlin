@@ -1,6 +1,7 @@
 package ru.andreyTw.delivery
 
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import ru.andreyTw.delivery.db.ClientTypeData
 import ru.andreyTw.delivery.repository.ClientTypeDataRepository
@@ -10,16 +11,25 @@ class DataBaseController(
     private val clientTypeDataRepository: ClientTypeDataRepository
 ) {
 
-    @GetMapping("/testHandle")
-    fun test(): String {
+    @GetMapping("/addClientType/{name}/{deliveryCost}/{discountValue}/{limitValue}")
+    fun addClientType(
+        @PathVariable("name") name: String,
+        @PathVariable("deliveryCost") deliveryCost: Int,
+        @PathVariable("discountValue") discountValue: Int,
+        @PathVariable("limitValue") limitValue: Int
+    ): String {
         val commonTypeData = ClientTypeData()
-        commonTypeData.clientTypeName = "COMMON"
-        commonTypeData.deliveryCost = 250
-        commonTypeData.discountValue = 0
-        commonTypeData.limitValue = 1000
+        commonTypeData.clientTypeName = name
+        commonTypeData.deliveryCost = deliveryCost
+        commonTypeData.discountValue = discountValue
+        commonTypeData.limitValue = limitValue
 
         clientTypeDataRepository.save(commonTypeData)
 
-        return "Entity was saved to DB!"
+        return "Client type $name{" +
+                "deliveryCost = $deliveryCost, " +
+                "discountValue = $discountValue, " +
+                "limitValue = $limitValue} " +
+                "was saved to DB!"
     }
 }
