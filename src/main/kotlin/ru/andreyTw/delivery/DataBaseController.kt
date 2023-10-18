@@ -42,6 +42,15 @@ class DataBaseController(
     fun findClientTypeByName(
         @PathVariable("name") name: String
     ): String {
-        return clientTypeDataRepository.findByName(name).toString()
+        val clientTypeData: ClientTypeData? = clientTypeDataRepository.findByName(name)
+        when {
+            clientTypeData != null -> {
+                return clientTypeData.toString()
+            }
+
+            else -> {
+                throw NoSuchClientTypeException(name)
+            }
+        }
     }
 }
