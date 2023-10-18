@@ -6,4 +6,7 @@ import ru.andreyTw.delivery.db.ClientTypeData;
 
 @Repository
 public interface ClientTypeDataRepository extends CrudRepository<ClientTypeData, Long> {
+
+    ClientTypeData findByName(String name);
+
 }

@@ -16,7 +16,11 @@ public class ClientTypeDataService {
         clientTypeDataRepository.save(clientTypeData);
     }
 
-//    public List<ClientTypeData> getAll() {
-//        return clientTypeDataRepository.findAll();
-//    }
+    public Iterable<ClientTypeData> getAll() {
+        return clientTypeDataRepository.findAll();
+    }
+
+    public ClientTypeData getByName(String name) {
+        return clientTypeDataRepository.findByName(name);
+    }
 }

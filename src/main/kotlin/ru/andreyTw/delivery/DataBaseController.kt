@@ -19,7 +19,7 @@ class DataBaseController(
         @PathVariable("limitValue") limitValue: Int
     ): String {
         val commonTypeData = ClientTypeData()
-        commonTypeData.clientTypeName = name
+        commonTypeData.name = name
         commonTypeData.deliveryCost = deliveryCost
         commonTypeData.discountValue = discountValue
         commonTypeData.limitValue = limitValue
@@ -31,5 +31,17 @@ class DataBaseController(
                 "discountValue = $discountValue, " +
                 "limitValue = $limitValue} " +
                 "was saved to DB!"
+    }
+
+    @GetMapping("/findAll")
+    fun findAllClientTypes(): String {
+        return clientTypeDataRepository.findAll().toString()
+    }
+
+    @GetMapping("/findByName/{name}")
+    fun findClientTypeByName(
+        @PathVariable("name") name: String
+    ): String {
+        return clientTypeDataRepository.findByName(name).toString()
     }
 }

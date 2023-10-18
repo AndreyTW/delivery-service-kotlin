@@ -11,8 +11,8 @@ public class ClientTypeData {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "client_type_name")
-    private String clientTypeName;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "delivery_cost")
     private Integer deliveryCost;
@@ -38,12 +38,12 @@ public class ClientTypeData {
         this.id = id;
     }
 
-    public String getClientTypeName() {
-        return clientTypeName;
+    public String getName() {
+        return name;
     }
 
-    public void setClientTypeName(String clientTypeName) {
-        this.clientTypeName = clientTypeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getDeliveryCost() {
@@ -74,7 +74,7 @@ public class ClientTypeData {
     public String toString() {
         return "ClientTypeEntity{" +
                 "id=" + id +
-                ", client_type_name=" + clientTypeName +
+                ", client_type_name=" + name +
                 ", delivery_cost=" + deliveryCost +
                 ", discount_value=" + discountValue +
                 ", limit_value=" + limitValue +
