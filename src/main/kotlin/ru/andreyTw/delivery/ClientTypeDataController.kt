@@ -7,37 +7,9 @@ import ru.andreyTw.delivery.db.ClientTypeData
 import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
 @RestController
-class DataBaseController(
+class ClientTypeDataController(
     private val clientTypeDataRepository: ClientTypeDataRepository
 ) {
-
-    @GetMapping("/initDb")
-    fun initDb(): String {
-        val commonTypeData = ClientTypeData()
-        commonTypeData.name = "COMMON"
-        commonTypeData.deliveryCost = 250
-        commonTypeData.discountValue = 0
-        commonTypeData.limitValue = 1000
-
-        val vipTypeData = ClientTypeData()
-        vipTypeData.name = "VIP"
-        vipTypeData.deliveryCost = 0
-        vipTypeData.discountValue = 5
-        vipTypeData.limitValue = 2500
-
-        val fnfTypeData = ClientTypeData()
-        fnfTypeData.name = "FnF"
-        fnfTypeData.deliveryCost = 0
-        fnfTypeData.discountValue = 2
-        fnfTypeData.limitValue = 0
-
-        clientTypeDataRepository.save(commonTypeData)
-        clientTypeDataRepository.save(vipTypeData)
-        clientTypeDataRepository.save(fnfTypeData)
-
-        return "DB was successfully initialized!"
-    }
-
     @GetMapping("/addClientType/{name}/{deliveryCost}/{discountValue}/{limitValue}")
     fun addClientType(
         @PathVariable("name") name: String,
