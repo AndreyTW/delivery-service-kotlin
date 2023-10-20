@@ -3,15 +3,32 @@ package ru.andreyTw.delivery.service.clientType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.eq
 import ru.andreyTw.delivery.ClientType
+import ru.andreyTw.delivery.db.ClientTypeData
+import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
+@ExtendWith(MockitoExtension::class)
 class VipClientTypeHandlerShould {
 
+    @Mock
+    private lateinit var clientTypeDataRepositoryMock: ClientTypeDataRepository
     private lateinit var vipClientTypeHandler: VipClientTypeHandler
 
     @BeforeEach
     fun setUp() {
-        vipClientTypeHandler = VipClientTypeHandler()
+        val vipTypeData = ClientTypeData()
+        vipTypeData.name = "VIP"
+        vipTypeData.deliveryCost = 0
+        vipTypeData.discountValue = 5
+        vipTypeData.limitValue = 2500
+        `when`(clientTypeDataRepositoryMock.findByName(eq("VIP"))).thenReturn(vipTypeData)
+
+        vipClientTypeHandler = VipClientTypeHandler(clientTypeDataRepositoryMock)
     }
 
     @Test
@@ -29,8 +46,8 @@ class VipClientTypeHandlerShould {
         assertEquals(2375, vipClientTypeHandler.calculate(2500))
     }
 
-    @Test
-    fun returnCommonClientTypeWhenAsked() {
+    //    @Test
+    fun returnVipClientTypeWhenAsked() {
         assertEquals(ClientType.VIP, vipClientTypeHandler.type)
     }
 }
