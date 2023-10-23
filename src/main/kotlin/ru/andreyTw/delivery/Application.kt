@@ -1,17 +1,25 @@
 package ru.andreyTw.delivery
 
 import jakarta.annotation.PostConstruct
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
-import org.springframework.web.servlet.function.*
+import org.springframework.web.servlet.function.RequestPredicates
+import org.springframework.web.servlet.function.RouterFunction
+import org.springframework.web.servlet.function.RouterFunctions
+import org.springframework.web.servlet.function.ServerResponse
 import ru.andreyTw.delivery.db.ClientTypeData
 import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
 @SpringBootApplication
 open class Application(private val clientTypeDataRepository: ClientTypeDataRepository) {
+
+    private val log: Logger = LoggerFactory.getLogger("delivery-service-kotlin")
+
     @Bean
     open fun htmlRouter(@Value("classpath:/static/index.html") html: Any): RouterFunction<ServerResponse> {
         return RouterFunctions.route(RequestPredicates.GET("/")) {
@@ -22,7 +30,7 @@ open class Application(private val clientTypeDataRepository: ClientTypeDataRepos
     }
 
     @PostConstruct
-    fun initDb(): String {
+    fun initDb() {
         val commonTypeData = ClientTypeData()
         commonTypeData.name = "COMMON"
         commonTypeData.deliveryCost = 250
@@ -45,7 +53,7 @@ open class Application(private val clientTypeDataRepository: ClientTypeDataRepos
         clientTypeDataRepository.save(vipTypeData)
         clientTypeDataRepository.save(fnfTypeData)
 
-        return "DB was successfully initialized!"
+        log.info("DB was successfully initialized!")
     }
 
     companion object {
