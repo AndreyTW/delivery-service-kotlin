@@ -2,19 +2,15 @@ package ru.andreyTw.delivery.service.clientType
 
 import org.springframework.stereotype.Service
 import ru.andreyTw.delivery.ClientType
-import ru.andreyTw.delivery.DataSourceConnector
-import ru.andreyTw.delivery.OracleDataSourceConnector
+import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
 @Service
-class FnFClientTypeHandler : ClientTypeHandler {
+class FnFClientTypeHandler(private val clientTypeDataRepository: ClientTypeDataRepository) : ClientTypeHandler {
 
     override fun calculate(cartAmount: Int): Int {
-        val dataSourceConnector: DataSourceConnector = OracleDataSourceConnector()
-        dataSourceConnector.openConnection()
-        dataSourceConnector.prepareResultSet("Friends&Family")
-        val p = dataSourceConnector.getDataByIndex(2)
-        dataSourceConnector.closeConnection()
-        return (cartAmount * (1 - p / 100.0)).toInt()
+        val fnfClientTypeData = clientTypeDataRepository.findByName(type.name)
+
+        return (cartAmount * (1 - fnfClientTypeData.discountValue / 100.0)).toInt()
     }
 
     override val type: ClientType = ClientType.FnF
