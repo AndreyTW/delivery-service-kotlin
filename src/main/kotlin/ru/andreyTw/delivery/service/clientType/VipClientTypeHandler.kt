@@ -11,8 +11,8 @@ class VipClientTypeHandler(private val clientTypeDataRepository: ClientTypeDataR
         val vipClientTypeData = clientTypeDataRepository.findByName(type.name)
 
         return when {
-            cartAmount >= vipClientTypeData.limitValue ->
-                (cartAmount * (1 - vipClientTypeData.discountValue / 100.0)).toInt()
+            cartAmount >= vipClientTypeData?.limitValue!! ->
+                (cartAmount * (1 - vipClientTypeData.discountValue!! / 100.0)).toInt()
 
             else -> cartAmount
         }

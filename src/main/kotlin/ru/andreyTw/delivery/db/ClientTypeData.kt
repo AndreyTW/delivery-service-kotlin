@@ -1,83 +1,35 @@
-package ru.andreyTw.delivery.db;
+package ru.andreyTw.delivery.db
 
-import jakarta.persistence.*;
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "CLIENT_TYPE_DATA")
-public class ClientTypeData {
+data class ClientTypeData(
 
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private Long id;
+    var id: Long? = null,
 
     @Column(name = "name")
-    private String name;
+    var name: String? = null,
 
     @Column(name = "delivery_cost")
-    private Integer deliveryCost;
+    var deliveryCost: Int? = null,
 
     @Column(name = "discount_value")
-    private Integer discountValue;
+    var discountValue: Int? = null,
 
     @Column(name = "limit_value")
-    private Integer limitValue;
+    var limitValue: Int? = null
+) {
 
-    /**
-     * Конструктор.
-     */
-    public ClientTypeData() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getDeliveryCost() {
-        return deliveryCost;
-    }
-
-    public void setDeliveryCost(Integer deliveryCost) {
-        this.deliveryCost = deliveryCost;
-    }
-
-    public Integer getDiscountValue() {
-        return discountValue;
-    }
-
-    public void setDiscountValue(Integer discountValue) {
-        this.discountValue = discountValue;
-    }
-
-    public Integer getLimitValue() {
-        return limitValue;
-    }
-
-    public void setLimitValue(Integer limitValue) {
-        this.limitValue = limitValue;
-    }
-
-    @Override
-    public String toString() {
-        return "ClientTypeEntity{" +
+    override fun toString(): String =
+        "ClientTypeEntity{" +
                 "id=" + id +
                 ", client_type_name=" + name +
                 ", delivery_cost=" + deliveryCost +
                 ", discount_value=" + discountValue +
                 ", limit_value=" + limitValue +
-                "}";
-    }
+                "}"
 }

@@ -10,10 +10,10 @@ class CommonClientTypeHandler(private val clientTypeDataRepository: ClientTypeDa
     override fun calculate(cartAmount: Int): Int {
         val commonClientTypeData = clientTypeDataRepository.findByName(type.name)
 
-        return if (cartAmount >= commonClientTypeData.limitValue) {
+        return if (cartAmount >= commonClientTypeData?.limitValue!!) {
             cartAmount
         } else {
-            cartAmount + commonClientTypeData.deliveryCost
+            cartAmount + commonClientTypeData.deliveryCost!!
         }
     }
 

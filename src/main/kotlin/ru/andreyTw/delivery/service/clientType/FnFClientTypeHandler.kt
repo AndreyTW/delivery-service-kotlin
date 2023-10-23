@@ -10,7 +10,7 @@ class FnFClientTypeHandler(private val clientTypeDataRepository: ClientTypeDataR
     override fun calculate(cartAmount: Int): Int {
         val fnfClientTypeData = clientTypeDataRepository.findByName(type.name)
 
-        return (cartAmount * (1 - fnfClientTypeData.discountValue / 100.0)).toInt()
+        return (cartAmount * (1 - fnfClientTypeData?.discountValue!! / 100.0)).toInt()
     }
 
     override val type: ClientType = ClientType.FnF
