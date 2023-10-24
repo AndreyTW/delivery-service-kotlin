@@ -2,7 +2,6 @@ package ru.andreyTw.delivery
 
 import jakarta.annotation.PostConstruct
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -14,11 +13,12 @@ import org.springframework.web.servlet.function.RouterFunctions
 import org.springframework.web.servlet.function.ServerResponse
 import ru.andreyTw.delivery.db.ClientTypeData
 import ru.andreyTw.delivery.repository.ClientTypeDataRepository
+import ru.andreyTw.delivery.utils.logger
 
 @SpringBootApplication
 open class Application(private val clientTypeDataRepository: ClientTypeDataRepository) {
 
-    private val log: Logger = LoggerFactory.getLogger("delivery-service-kotlin")
+    private val log: Logger = logger<Application>()
 
     @Bean
     open fun htmlRouter(@Value("classpath:/static/index.html") html: Any): RouterFunction<ServerResponse> {
