@@ -17,6 +17,7 @@ val mockitoVersion: String by project
 val mockitoKotlinVersion: String by project
 val cucumberVersion: String by project
 val lombokVersion: String by project
+val kotlinVersion: String by project
 
 repositories {
     mavenCentral()
@@ -27,7 +28,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     implementation("org.mockito:mockito-core:$mockitoVersion")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
     runtimeOnly("com.h2database:h2")
+
 
     testImplementation("org.mockito:mockito-junit-jupiter:$mockitoVersion")
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")

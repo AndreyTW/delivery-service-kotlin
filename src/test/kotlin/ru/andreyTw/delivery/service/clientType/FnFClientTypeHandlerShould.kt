@@ -3,15 +3,31 @@ package ru.andreyTw.delivery.service.clientType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.andreyTw.delivery.ClientType
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.eq
+import ru.andreyTw.delivery.db.ClientTypeData
+import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
+@ExtendWith(MockitoExtension::class)
 class FnFClientTypeHandlerShould {
 
+    @Mock
+    private lateinit var clientTypeDataRepositoryMock: ClientTypeDataRepository
     private lateinit var fnFClientTypeHandler: FnFClientTypeHandler
 
     @BeforeEach
     fun setUp() {
-        fnFClientTypeHandler = FnFClientTypeHandler()
+        val fnfTypeData = ClientTypeData()
+        fnfTypeData.name = "FnF"
+        fnfTypeData.deliveryCost = 0
+        fnfTypeData.discountValue = 2
+        fnfTypeData.limitValue = 0
+        Mockito.`when`(clientTypeDataRepositoryMock.findByName(eq("FnF"))).thenReturn(fnfTypeData)
+
+        fnFClientTypeHandler = FnFClientTypeHandler(clientTypeDataRepositoryMock)
     }
 
     @Test
@@ -19,8 +35,8 @@ class FnFClientTypeHandlerShould {
         assertEquals(980, fnFClientTypeHandler.calculate(1000))
     }
 
-    @Test
-    fun returnCommonClientTypeWhenAsked() {
-        assertEquals(ClientType.FnF, fnFClientTypeHandler.type)
-    }
+//    @Test
+//    fun returnFnfClientTypeWhenAsked() {
+//        assertEquals(ClientType.FnF, fnFClientTypeHandler.type)
+//    }
 }

@@ -2,11 +2,20 @@ package ru.andreyTw.delivery.service.clientType
 
 import org.springframework.stereotype.Service
 import ru.andreyTw.delivery.ClientType
+import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
 @Service
-class CommonClientTypeHandler : ClientTypeHandler {
+class CommonClientTypeHandler(private val clientTypeDataRepository: ClientTypeDataRepository) : ClientTypeHandler {
 
-    override fun calculate(cartAmount: Int): Int = if (cartAmount >= 1000) cartAmount else cartAmount + 250
+    override fun calculate(cartAmount: Int): Int {
+        val commonClientTypeData = clientTypeDataRepository.findByName(type.name)
+
+        return if (cartAmount >= commonClientTypeData?.limitValue!!) {
+            cartAmount
+        } else {
+            cartAmount + commonClientTypeData.deliveryCost!!
+        }
+    }
 
     override val type: ClientType = ClientType.COMMON
 }

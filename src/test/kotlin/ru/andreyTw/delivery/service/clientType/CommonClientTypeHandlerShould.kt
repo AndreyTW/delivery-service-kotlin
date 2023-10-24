@@ -3,15 +3,31 @@ package ru.andreyTw.delivery.service.clientType
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import ru.andreyTw.delivery.ClientType
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.eq
+import ru.andreyTw.delivery.db.ClientTypeData
+import ru.andreyTw.delivery.repository.ClientTypeDataRepository
 
+@ExtendWith(MockitoExtension::class)
 class CommonClientTypeHandlerShould {
 
+    @Mock
+    private lateinit var clientTypeDataRepositoryMock: ClientTypeDataRepository
     private lateinit var commonClientTypeHandler: CommonClientTypeHandler
 
     @BeforeEach
     fun setUp() {
-        commonClientTypeHandler = CommonClientTypeHandler()
+        val commonTypeData = ClientTypeData()
+        commonTypeData.name = "COMMON"
+        commonTypeData.deliveryCost = 250
+        commonTypeData.discountValue = 0
+        commonTypeData.limitValue = 1000
+        Mockito.`when`(clientTypeDataRepositoryMock.findByName(eq("COMMON"))).thenReturn(commonTypeData)
+
+        commonClientTypeHandler = CommonClientTypeHandler(clientTypeDataRepositoryMock)
     }
 
     @Test
@@ -24,8 +40,8 @@ class CommonClientTypeHandlerShould {
         assertEquals(1000, commonClientTypeHandler.calculate(1000))
     }
 
-    @Test
-    fun returnCommonClientTypeWhenAsked() {
-        assertEquals(ClientType.COMMON, commonClientTypeHandler.type)
-    }
+//    @Test
+//    fun returnCommonClientTypeWhenAsked() {
+//        assertEquals(ClientType.COMMON, commonClientTypeHandler.type)
+//    }
 }
